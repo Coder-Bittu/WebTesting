@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+<style>
+table tr th {
+
+padding: 10px;
+
+}
+
+
+.dayname{
+
+background: #075e74;
+color: white;
+font-weight: bold;
+
+}
+
+
+.today {
+
+border: 2px solid blue;
+
+}
+
+
+.MonthName {
+
+background: darkorange;
+color: white;
+
+}
+</style>
+
+</head>
+
+<body>
+
+
+
+<table id="calendar">
+
+</table>
+
+
+
+<script>
+
+var html = "";
+
+CreateCalendar();
+
+
+function CreateCalendar(){
+
+	
+
+
+	var d = new Date();
+    
+    var date = d.getDate();
+    var month = d.getMonth();
+    var year = d.getFullYear();
+    
+    var DayNumCounter=0;
+    
+    var febn = 0;
+    
+    if(((year%4==0) && (year%100!=0))|(year%400==0)){
+    febn = 29;    
+    }else{
+    febn = 28; 
+    }
+    
+	var nd = new Date((d.getMonth()+1)+" 1 ,"+d.getFullYear());
+    
+    var PrevDays = nd.getDay();
+    
+
+	var ArrayOfMonth = ["January","February","March","April","May","June","July","August","September","October","November","December"]
+
+ var DayOfMonth = [31,febn,31,30,31,30,31,31,30,31,30,31];
+    
+    
+    html += "<tr><th colspan='7' class='MonthName'>"+ArrayOfMonth[month]+"</th></tr>";
+    
+    
+    html += "<tr><th class='dayname'>MON</th><th class='dayname'>TUE</th><th class='dayname'>WED</th><th class='dayname'>THU</th><th class='dayname'>FRI</th><th class='dayname'>SAT</th><th class='dayname'>SUN</th></tr><tr>"
+    
+   while(PrevDays>1){
+   html +="<th></th>"
+   DayNumCounter++;
+   PrevDays--;
+   }
+   
+   
+   for(x=1;x<=DayOfMonth[month];x++){
+   
+   if(DayNumCounter>6){
+   html += "</tr><tr>";
+   DayNumCounter=0;
+   }
+   
+   if(x==date){
+   html +="<th class='today'>"+x+"</th>";
+   }else{
+   html +="<th>"+x+"</th>";
+   }
+   
+   DayNumCounter++;
+   }
+    
+    document.getElementById("calendar").innerHTML = html;
+
+}
+
+
+</script>
+
+</body>
+
+</html>
